@@ -4,7 +4,7 @@ import logging
 
 class APIFilter(logging.Filter):
     def filter(self, record):
-        return True if 'activity' in record.request.url.path else False
+        return True if 'cache' in record.request.url.path else False
 
 
 class JSONFormatter(logging.Formatter):

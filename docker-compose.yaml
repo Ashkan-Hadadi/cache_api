@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  backend:
+    build: .
+    command: bash ./entrypoint.sh
+    depends_on:
+      - 'mongodb'
+    env_file:
+      - '.env'
+    volumes:
+      - '.:/cache_api'
+    ports:
+      - '8000:8000'
+  mongodb:
+    image: 'mongo:latest'
+    ports:
+      - '27024:27017'
+    env_file:
+      - '.env'
+    volumes:
+      # named volumes
+      - 'mongodb:/data/db'
+      - 'mongoconfig:/data/configdb'
+volumes:
+  mongodb: { }
+  mongoconfig: { }

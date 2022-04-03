@@ -2,12 +2,12 @@ FROM python:3.9
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR /app
+WORKDIR /cache_api
 
-COPY requirements.txt /app/
+COPY requirements.txt /cache_api/
 RUN pip install -r requirements.txt
 
-COPY . /app
+COPY . /cache_api
 
 EXPOSE 8000
 

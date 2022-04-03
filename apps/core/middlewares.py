@@ -9,9 +9,6 @@ from starlette.types import ASGIApp
 from apps.core.utils.logger import JSONFormatter
 
 
-# from app.core.utils.logger import APIFilter
-
-
 class ProcessTimeMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         request.state.time_started = time.time()
@@ -28,10 +25,9 @@ class ActivityLoggerMiddleWare(BaseHTTPMiddleware):
         super().__init__(app)
         self.logger = logging.getLogger(self.__class__.__name__)
         self.logger.setLevel(logging.INFO)
-        file_handler = logging.FileHandler('activity.log')
+        file_handler = logging.FileHandler('cache.log')
         file_handler.setFormatter(JSONFormatter())
         self.logger.addHandler(file_handler)
-        # self.logger.addFilter(APIFilter())
 
     async def dispatch(self, request: Request, call_next):
         if 'activity' not in request.url.path:
